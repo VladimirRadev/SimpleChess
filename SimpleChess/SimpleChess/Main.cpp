@@ -2,6 +2,7 @@
 #include <vector>
 #include <time.h>
 #include <iomanip>
+#include <string>
 #include "Declarating.h"
 using namespace std;
 
@@ -9,18 +10,34 @@ const int MAX_BOARD_SIZE = 100;
 const int BOARD_SIZE = generateBoardSize();
 const char EMPTY = '-';
 const char BOT = 'B';
-const char ROCK1 = 'R';
-const char ROCK2 = 'r';
+const char ROOK1 = 'R';
+const char ROOK2 = 'r';
 const char KING = 'K';
 const int FIGURE_COUNT = 4;
 const string NEW_LINE_CHARS = "<< \n";
-const string IMPUT_USER_CHARS = ">>   ";
+const string IMPUT_USER_CHARS = ">> ";
 char board[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+
+struct King {
+	char name;
+	int x;
+	int y;
+};
+
+struct Rook {
+	char name;
+	int x;
+	int y;
+};
 
 int main()
 {
 	srand((unsigned)time(0));
 	short action = 0;
+	King enemyKing = {BOT,0,0};
+	King playerKing = { KING,0,0 };
+	Rook playerRook1 = { ROOK1,0,0 };
+	Rook playerRook2 = { ROOK2,0,0 };
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		for (int j = 0; j < BOARD_SIZE; j++) {
 			board[i][j] = EMPTY;
@@ -66,10 +83,10 @@ int main()
 			board[x_BOT][y_BOT + 1] = BOT;
 		}
 
-		cout << NEW_LINE_CHARS;
+		cout << NEW_LINE_CHARS; 
 		playerKingInit(board, BOARD_SIZE, x_BOT, y_BOT);
-		playerRock1Init(board, BOARD_SIZE, x_BOT, y_BOT);
-		playerRock2Init(board, BOARD_SIZE, x_BOT, y_BOT);
+		playerROOK1Init(board, BOARD_SIZE, x_BOT, y_BOT);
+		playerROOK2Init(board, BOARD_SIZE, x_BOT, y_BOT);
 		for (int i = 0; i < BOARD_SIZE; i++)
 		{
 			for (int j = 0; j < BOARD_SIZE; j++)
@@ -79,9 +96,120 @@ int main()
 				}
 
 			}
+		}
+		for (int i = 0; i < BOARD_SIZE; i++)
+		{
+			for (int j = 0; j < BOARD_SIZE; j++)
+			{
+				if (board[i][j] == enemyKing.name) {
+					enemyKing.x = i;
+					enemyKing.y = j;
+				}
+				else if (board[i][j] == playerKing.name) {
+					playerKing.x = i;
+					playerKing.y = j;
+				}
+				else if (board[i][j] == playerRook1.name) {
+					playerRook1.x = i;
+					playerRook1.y = j;
+				}
+				else if (board[i][j] == playerRook2.name) {
+					playerRook2.x = i;
+					playerRook2.y = j;
+				}
+			}
+		}
+		//string line;
+		string playerPiece;
+		int player_X = 0;
+		int player_Y = 0;
+		bool checkMateBOT = false;
+		int counterMoves = 0;
+		//getline(cin, line, '\n');
+		while (!checkMateBOT) {
+			printBoard(board, BOARD_SIZE);
+			bool flag = false;
+			while (!flag) {
+				cout << IMPUT_USER_CHARS;
+				cin >> playerPiece >> player_X >> player_Y;
+				bool flag = true;
+				if (playerPiece[0] == KING || playerPiece[0] == ROOK1 || playerPiece[0] == ROOK2) {
+					if (player_X >= 0 && player_X <= BOARD_SIZE - 1) {
+						if (player_Y >= 0 && player_Y <= BOARD_SIZE - 1) {
+							if (board[player_X][player_Y] == EMPTY) {
+								if (playerPiece[0] == playerRook1.name) {
+									if ((player_X == playerRook1.x && player_Y != playerRook1.y) || (player_X != playerRook1.x && player_Y == playerRook1.y)) {
+										board[playerRook1.x][playerRook1.y] = EMPTY;
+										board[player_X][player_Y] = playerRook1.name;
+										playerRook1.x = player_X;
+										playerRook1.y = player_Y;
+									}
+									else {
+										continue;
+									}
+								}
+								else if (playerPiece[0] == playerRook2.name) {
+									if ((player_X == playerRook2.x && player_Y != playerRook2.y) || (player_X != playerRook2.x && player_Y == playerRook2.y)) {
+										board[playerRook2.x][playerRook2.y] = EMPTY;
+										board[player_X][player_Y] = playerRook2.name;
+										playerRook2.x = player_X;
+										playerRook2.y = player_Y;
+									}
+									else {
+										continue;
+									}
+								}
+								else if (playerPiece[0] == playerKing.name) {
+
+								}
+
+								flag = true;
+								break;
+							}
+						}
+						else {
+							continue;
+						}
+					}
+					else {
+						continue;
+					}
+				}
+				else {
+					continue;
+				}
+
+			}
+			/*if (playerPiece[0] == playerRook1.name) {
+				if ((player_X == playerRook1.x && player_Y != playerRook1.y) || (player_X != playerRook1.x && player_Y == playerRook1.y)) {
+					board[playerRook1.x][playerRook1.y] = EMPTY;
+					board[player_X][player_Y] = playerRook1.name;
+					playerRook1.x = player_X;
+					playerRook1.y = player_Y;
+				}
+				else {
+					continue;
+				}
+			}
+			else if (playerPiece[0] == playerRook2.name) {
+				if ((player_X == playerRook2.x && player_Y != playerRook2.y) || (player_X != playerRook2.x && player_Y == playerRook2.y)) {
+					board[playerRook2.x][playerRook2.y] = EMPTY;
+					board[player_X][player_Y] = playerRook2.name;
+					playerRook2.x = player_X;
+					playerRook2.y = player_Y;
+				}
+				else {
+					continue;
+				}
+			}
+			else if (playerPiece[0] == playerKing.name) {
+
+			}*/
+
+
 
 		}
-		printBoard(board, BOARD_SIZE);
+
 	}
 	else if (action == 2) {
 		//todo change line in file

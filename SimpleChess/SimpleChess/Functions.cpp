@@ -7,8 +7,8 @@ using namespace std;
 
 const char EMPTY = '-';
 const char BOT = 'B';
-const char ROCK1 = 'R';
-const char ROCK2 = 'r';
+const char ROOK1 = 'R';
+const char ROOK2 = 'r';
 const char KING = 'K';
 
 int generateBoardSize()
@@ -68,7 +68,7 @@ void playerKingInit(char board[100][100], const int size, int x_BOT, int y_BOT) 
 		}
 	}
 }
-void playerRock1Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
+void playerROOK1Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
 	for (int x = 0; x <= size-1; x++) {
 		if (x == x_BOT) {
 			continue;
@@ -79,13 +79,13 @@ void playerRock1Init(char board[100][100], const int size, int x_BOT, int y_BOT)
 			}
 			else if(board[x][y]!=BOT && board[x][y]!=KING && board[x][y]==EMPTY)
 			{
-				board[x][y] = ROCK1;
+				board[x][y] = ROOK1;
 				return;
 			}
 		}
 	}
 }
-void playerRock2Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
+void playerROOK2Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
 	for (int x = size-1; x >=0; x--) {
 		if (x == x_BOT) {
 			continue;
@@ -94,9 +94,9 @@ void playerRock2Init(char board[100][100], const int size, int x_BOT, int y_BOT)
 			if (y == y_BOT) {
 				continue;
 			}
-			else if (board[x][y] != BOT && board[x][y] != KING && board[x][y] != ROCK1 && board[x][y] == EMPTY)
+			else if (board[x][y] != BOT && board[x][y] != KING && board[x][y] != ROOK1 && board[x][y] == EMPTY)
 			{
-				board[x][y] = ROCK2;
+				board[x][y] = ROOK2;
 				return;
 			}
 		}
