@@ -137,6 +137,21 @@ bool isBotInCheckByRook(char board[100][100],int bot_X, int bot_Y, int currentRo
 		return false;
 	}
 }
+bool isBotInCheckByKing(int bot_x, int bot_y, int playerKing_X, int playerKing_Y) {
+	if ((bot_x == playerKing_X && playerKing_Y != bot_y) || (bot_x != playerKing_X && playerKing_Y == bot_y)) {
+		if (abs(abs(bot_x - playerKing_X) + abs(bot_y - playerKing_Y)) <= 1) {
+			return true;
+		}
+		return false;
+	}
+	else if (abs(abs(bot_x - playerKing_X) + abs(bot_y - playerKing_Y)) <= 2) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, int current_X,int current_Y) {
 	if ((replace_X == current_X && replace_Y != current_Y) || (replace_X != current_X && replace_Y == current_Y)) {
 		//move up or down
@@ -185,6 +200,9 @@ bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, in
 }
 void botMakeValidMove(char board[100][100],int enemyKing_X, int enemyKing_Y, int playerKing_X, int playerKing_Y, int playerRook1_X, int playerRook1_Y,
 	int playerRook2_X, int playerRook2_Y, bool& checkMateBOT) {
+	cout << "in check by R "<<isBotInCheckByRook(board, enemyKing_X, enemyKing_Y, playerRook1_X, playerRook1_Y) << endl;
+	cout <<"in check by r"<< isBotInCheckByRook(board, enemyKing_X, enemyKing_Y, playerRook2_X, playerRook2_Y) << endl;
+	cout <<"in check by K"<< isBotInCheckByKing(enemyKing_X, enemyKing_Y,playerKing_X,playerKing_Y) << endl;
 }
 void printBoard(char board[100][100], const int size)
 {
