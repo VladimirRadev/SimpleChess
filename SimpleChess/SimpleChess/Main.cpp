@@ -6,7 +6,6 @@
 #include "Declarating.h"
 using namespace std;
 
-const int MAX_BOARD_SIZE = 100;
 const int BOARD_SIZE = generateBoardSize();
 const char EMPTY = '-';
 const char BOT = 'B';
@@ -16,9 +15,20 @@ const char KING = 'K';
 const int FIGURE_COUNT = 4;
 const string NEW_LINE_CHARS = "<< \n";
 const string IMPUT_USER_CHARS = ">> ";
-char board[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+struct King {
+	char name;
+	int x;
+	int y;
+};
+
+struct Rook {
+	char name;
+	int x;
+	int y;
+};
 int main()
 {
+	char board[100][100] = { 0 };
 	srand((unsigned)time(0));
 	short action = 0;
 	King enemyKing = { BOT,0,0 };
@@ -125,24 +135,22 @@ int main()
 						if (player_Y >= 0 && player_Y <= BOARD_SIZE - 1) {
 							if (board[player_X][player_Y] == EMPTY) {
 								if (playerPiece[0] == playerRook1.name) {
-									if ((player_X == playerRook1.x && player_Y != playerRook1.y) || (player_X != playerRook1.x && player_Y == playerRook1.y)) {
+									if (isPossibleRookReplace(board,player_X, player_Y,playerRook1.x, playerRook1.y)) {
 										board[playerRook1.x][playerRook1.y] = EMPTY;
 										board[player_X][player_Y] = playerRook1.name;
 										playerRook1.x = player_X;
 										playerRook1.y = player_Y;
-										break;
 									}
 									else {
 										continue;
 									}
 								}
 								else if (playerPiece[0] == playerRook2.name) {
-									if ((player_X == playerRook2.x && player_Y != playerRook2.y) || (player_X != playerRook2.x && player_Y == playerRook2.y)) {
+									if (isPossibleRookReplace(board, player_X, player_Y, playerRook2.x, playerRook2.y)) {
 										board[playerRook2.x][playerRook2.y] = EMPTY;
 										board[player_X][player_Y] = playerRook2.name;
 										playerRook2.x = player_X;
 										playerRook2.y = player_Y;
-										break;
 									}
 									else {
 										continue;

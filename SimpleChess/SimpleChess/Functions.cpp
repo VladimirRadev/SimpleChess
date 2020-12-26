@@ -41,26 +41,52 @@ int generateBoardSize()
 	return num;
 
 }
-bool isForbidden(int ind, vector<int>& vect) {
-	for (int i = 0; i < vect.size(); i++) {
-		if (ind == vect[i]) {
-			return true;
+bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, int current_X,int current_Y) {
+	if ((replace_X == current_X && replace_Y != current_Y) || (replace_X != current_X && replace_Y == current_Y)) {
+		//move up or down
+		if (replace_Y == current_Y) {
+			if (current_X > replace_X) {
+				for (int i = current_X - 1; i > replace_X; i--) {
+					if (board[i][replace_Y] != EMPTY) {
+						return false;
+					}
+				}
+				return true;
+			}
+			else if (current_X < replace_X) {
+				for (int i = current_X + 1; i < replace_X; i++) {
+					if (board[i][replace_Y] != EMPTY) {
+						return false;
+					}
+				}
+				return true;
+			}
 		}
-	}
-	return false;
-
-}
-bool isPossibleRookReplace(char board[100][100], int replace_X, int replace_Y, Rook currentRook, Rook secondRook, King enemyKing, King playerKing) {
-	if ((replace_X == currentRook.x && replace_Y != currentRook.y) || (replace_X != currentRook.x && replace_Y == currentRook.y)) {
-	
-
+		//move left or right
+		else if (replace_X == current_X) {
+			if (current_Y > replace_Y) {
+				for (int i = current_Y - 1; i > replace_Y; i--) {
+					if (board[replace_X][i] != EMPTY) {
+						return false;
+					}
+				}
+				return true;
+			}
+			else if (current_Y < replace_Y) {
+				for (int i = current_Y + 1; i < replace_Y; i++) {
+					if (board[replace_X][i] != EMPTY) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
 
 	}
 	else {
 		return false;
 	}
 }
-
 void printBoard(char board[100][100], const int size)
 {
 	for (int i = 0; i < size; i++) {
@@ -113,10 +139,4 @@ void playerROOK2Init(char board[100][100], const int size, int x_BOT, int y_BOT)
 			}
 		}
 	}
-}
-void playerROOKMove(char board[100][100], int replace_X, int replace_Y, Rook currentRook) {
-	board[currentRook.x][currentRook.y] = EMPTY;
-	board[replace_X][replace_Y] = currentRook.name;
-	currentRook.x = replace_X;
-	currentRook.y = replace_Y;
 }
