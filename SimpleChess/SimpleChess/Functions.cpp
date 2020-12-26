@@ -41,6 +41,102 @@ int generateBoardSize()
 	return num;
 
 }
+bool isBotInCheckByRook(char board[100][100],int bot_X, int bot_Y, int currentRook_X, int currentRook_Y) {
+	if (bot_X == currentRook_X) {
+		//if bot has cover by other figure
+		if (bot_Y < currentRook_Y) {
+			char firstFigureInLine = '\0';
+			for (int i = bot_Y + 1; i <= currentRook_Y;i++) {
+				if (board[bot_X][i] != EMPTY) {
+					firstFigureInLine = board[bot_X][i];
+					break;
+				}
+			}
+			if (firstFigureInLine == '\0') {
+				return false;
+			}
+			if (firstFigureInLine == ROOK1 || firstFigureInLine == ROOK2) {
+				return true;
+			}
+			else if (firstFigureInLine == KING && (currentRook_Y - bot_Y) > 2) {
+				return false;
+			}
+			else if (firstFigureInLine == KING && (currentRook_Y - bot_Y) <= 2) {
+				return true;
+			}
+			return false;
+		}
+		if (bot_Y > currentRook_Y) {
+			char firstFigureInLine = '\0';
+			for (int i = bot_Y - 1; i >= currentRook_Y; i--) {
+				if (board[bot_X][i] != EMPTY) {
+					firstFigureInLine = board[bot_X][i];
+					break;
+				}
+			}
+			if (firstFigureInLine == '\0') {
+				return false;
+			}
+			if (firstFigureInLine == ROOK1 || firstFigureInLine == ROOK2) {
+				return true;
+			}
+			else if (firstFigureInLine == KING && (bot_Y-currentRook_Y) > 2) {
+				return false;
+			}
+			else if (firstFigureInLine == KING && (bot_Y - currentRook_Y) <= 2) {
+				return true;
+			}
+			return false;
+		}
+	}
+	else if (bot_Y == currentRook_Y) {
+		if (bot_X > currentRook_X) {
+			char firstFigureInLine = '\0';
+			for (int i = bot_X - 1; i >= currentRook_X; i--) {
+				if (board[i][bot_Y] != EMPTY) {
+					firstFigureInLine = board[i][bot_Y];
+					break;
+				}
+			}
+			if (firstFigureInLine == ROOK1 || firstFigureInLine == ROOK2) {
+				return true;
+			}
+			else if (firstFigureInLine == KING && (bot_X-currentRook_X) > 2) {
+				return false;
+			}
+			else if (firstFigureInLine == KING && (bot_X - currentRook_X) <= 2) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		if (bot_X < currentRook_X) {
+			char firstFigureInLine = '\0';
+			for (int i = bot_X+1; i <= currentRook_X; i++) {
+				if (board[i][bot_Y] != EMPTY) {
+					firstFigureInLine = board[i][bot_Y];
+					break;
+				}
+			}
+			if (firstFigureInLine == ROOK1 || firstFigureInLine == ROOK2) {
+				return true;
+			}
+			else if (firstFigureInLine == KING && (currentRook_X-bot_X) > 2) {
+				return false;
+			}
+			else if (firstFigureInLine == KING && (currentRook_X - bot_X) <= 2) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	else {
+		return false;
+	}
+}
 bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, int current_X,int current_Y) {
 	if ((replace_X == current_X && replace_Y != current_Y) || (replace_X != current_X && replace_Y == current_Y)) {
 		//move up or down
@@ -86,6 +182,9 @@ bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, in
 	else {
 		return false;
 	}
+}
+void botMakeValidMove(char board[100][100],int enemyKing_X, int enemyKing_Y, int playerKing_X, int playerKing_Y, int playerRook1_X, int playerRook1_Y,
+	int playerRook2_X, int playerRook2_Y, bool& checkMateBOT) {
 }
 void printBoard(char board[100][100], const int size)
 {

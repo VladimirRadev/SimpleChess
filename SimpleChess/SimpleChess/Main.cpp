@@ -187,34 +187,9 @@ int main()
 
 				}
 			}
-			/*if (playerPiece[0] == playerRook1.name) {
-				if ((player_X == playerRook1.x && player_Y != playerRook1.y) || (player_X != playerRook1.x && player_Y == playerRook1.y)) {
-					board[playerRook1.x][playerRook1.y] = EMPTY;
-					board[player_X][player_Y] = playerRook1.name;
-					playerRook1.x = player_X;
-					playerRook1.y = player_Y;
-				}
-				else {
-					continue;
-				}
-			}
-			else if (playerPiece[0] == playerRook2.name) {
-				if ((player_X == playerRook2.x && player_Y != playerRook2.y) || (player_X != playerRook2.x && player_Y == playerRook2.y)) {
-					board[playerRook2.x][playerRook2.y] = EMPTY;
-					board[player_X][player_Y] = playerRook2.name;
-					playerRook2.x = player_X;
-					playerRook2.y = player_Y;
-				}
-				else {
-					continue;
-				}
-			}
-			else if (playerPiece[0] == playerKing.name) {
-
-			}*/
-
-
-
+			counterMoves++;
+			botMakeValidMove(board,enemyKing.x, enemyKing.y,
+				playerKing.x, playerKing.y, playerRook1.x, playerRook1.y, playerRook2.x, playerRook2.y, checkMateBOT);
 		}
 
 	}

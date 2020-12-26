@@ -1,1 +1,2 @@
-SizeBoard=         8
+SizeBoard=4
+
