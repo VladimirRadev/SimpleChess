@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include "StructHolder.h"
 using namespace std;
 
 const char EMPTY = '-';
@@ -49,6 +50,17 @@ bool isForbidden(int ind, vector<int>& vect) {
 	return false;
 
 }
+bool isPossibleRookReplace(char board[100][100], int replace_X, int replace_Y, Rook currentRook, Rook secondRook, King enemyKing, King playerKing) {
+	if ((replace_X == currentRook.x && replace_Y != currentRook.y) || (replace_X != currentRook.x && replace_Y == currentRook.y)) {
+	
+
+
+	}
+	else {
+		return false;
+	}
+}
+
 void printBoard(char board[100][100], const int size)
 {
 	for (int i = 0; i < size; i++) {
@@ -101,4 +113,10 @@ void playerROOK2Init(char board[100][100], const int size, int x_BOT, int y_BOT)
 			}
 		}
 	}
+}
+void playerROOKMove(char board[100][100], int replace_X, int replace_Y, Rook currentRook) {
+	board[currentRook.x][currentRook.y] = EMPTY;
+	board[replace_X][replace_Y] = currentRook.name;
+	currentRook.x = replace_X;
+	currentRook.y = replace_Y;
 }
