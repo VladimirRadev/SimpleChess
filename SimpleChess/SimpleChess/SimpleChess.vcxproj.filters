@@ -26,8 +26,5 @@
     <ClInclude Include="Declarating.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StructHolder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

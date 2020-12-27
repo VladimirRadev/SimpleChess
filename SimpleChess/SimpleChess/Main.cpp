@@ -6,35 +6,25 @@
 #include "Declarating.h"
 using namespace std;
 
-const int BOARD_SIZE = generateBoardSize();
 const char EMPTY = '-';
 const char BOT = 'B';
 const char ROOK1 = 'R';
 const char ROOK2 = 'r';
 const char KING = 'K';
+const int BOARD_SIZE = generateBoardSize();
 const int FIGURE_COUNT = 4;
 const string NEW_LINE_CHARS = "<< \n";
 const string IMPUT_USER_CHARS = ">> ";
-struct King {
-	char name;
-	int x;
-	int y;
-};
 
-struct Rook {
-	char name;
-	int x;
-	int y;
-};
+King enemyKing = { BOT,0,0 };
+King playerKing = { KING,0,0 };
+Rook playerRook1 = { ROOK1,0,0 };
+Rook playerRook2 = { ROOK2,0,0 };
 int main()
 {
 	char board[100][100] = { 0 };
 	srand((unsigned)time(0));
 	short action = 0;
-	King enemyKing = { BOT,0,0 };
-	King playerKing = { KING,0,0 };
-	Rook playerRook1 = { ROOK1,0,0 };
-	Rook playerRook2 = { ROOK2,0,0 };
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		for (int j = 0; j < BOARD_SIZE; j++) {
 			board[i][j] = EMPTY;
@@ -188,9 +178,12 @@ int main()
 				}
 			}
 			counterMoves++;
-			botMakeValidMove(board,enemyKing.x, enemyKing.y,
-				playerKing.x, playerKing.y, playerRook1.x, playerRook1.y, playerRook2.x, playerRook2.y, checkMateBOT);
+			printBoard(board, BOARD_SIZE);
+			botMakeValidMove(board, BOARD_SIZE, &enemyKing, enemyKing.x, enemyKing.y, playerKing.x, playerKing.y, playerRook1.x, playerRook1.y, playerRook2.x, playerRook2.y, checkMateBOT);
 		}
+		cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
+		return 0;
+
 
 	}
 	else if (action == 2) {
