@@ -198,59 +198,56 @@ bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, in
 		return false;
 	}
 }
-void botMakeValidMove(char board[100][100],const int boardSize, King *enemyKing,int  enemyKing_X, int enemyKing_Y, int playerKing_X, int playerKing_Y, int playerRook1_X, int playerRook1_Y,int playerRook2_X, int playerRook2_Y, bool& checkMateBOT) {
-	cout << "in check by R "<<isBotInCheckByRook(board, enemyKing_X, enemyKing_Y, playerRook1_X, playerRook1_Y) << endl;
-	cout <<"in check by r"<< isBotInCheckByRook(board, enemyKing_X, enemyKing_Y, playerRook2_X, playerRook2_Y) << endl;
-	cout <<"in check by K"<< isBotInCheckByKing(enemyKing_X, enemyKing_Y,playerKing_X,playerKing_Y) << endl;
+void botMakeValidMove(char board[100][100], const int boardSize, King* enemyKing, King* playerKing, Rook* playerRook1, Rook* playerRook2 , bool& checkMateBOT) {
 	map<int, int[2]>possibleMovementsOfBOT;
-	int checkMateMove_X = 0, checkMateMove_Y = 0, counterOfPossibleMovements = 0;
+	int checkMateMove_X = enemyKing->x, checkMateMove_Y = enemyKing->y, counterOfPossibleMovements = 0;
 	//(x-1) state
-	if (enemyKing_X - 1 >= 0) {
+	if (enemyKing->x - 1 >= 0) {
 		//(x-1) y
-		if (enemyKing_Y >= 0) {
-			if (board[enemyKing_X - 1][enemyKing_Y] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X - 1, enemyKing_Y, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X - 1;
-					checkMateMove_Y = enemyKing_Y;
+		if (enemyKing->y >= 0) {
+			if (board[enemyKing->x - 1][enemyKing->y] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x - 1, enemyKing->y, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x - 1;
+					checkMateMove_Y = enemyKing->y;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X - 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x - 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y;
 					++counterOfPossibleMovements;
 				}
 			}
 		}
 		//(x-1)(y-1)
-		if (enemyKing_Y - 1 >= 0) {
-			if (board[enemyKing_X - 1][enemyKing_Y - 1] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y - 1, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y - 1, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X - 1, enemyKing_Y - 1, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X - 1;
-					checkMateMove_Y = enemyKing_Y - 1;
+		if (enemyKing->y - 1 >= 0) {
+			if (board[enemyKing->x - 1][enemyKing->y - 1] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y - 1, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y - 1, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x - 1, enemyKing->y - 1, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x - 1;
+					checkMateMove_Y = enemyKing->y - 1;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X - 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y - 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x - 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y - 1;
 					++counterOfPossibleMovements;
 				}
 			}
 		}
 
 		//(x-1)(y+1)
-		if (enemyKing_Y + 1 <= boardSize - 1) {
-			if (board[enemyKing_X - 1][enemyKing_Y + 1] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y + 1, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X - 1, enemyKing_Y + 1, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X - 1, enemyKing_Y + 1, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X - 1;
-					checkMateMove_Y = enemyKing_Y + 1;
+		if (enemyKing->y + 1 <= boardSize - 1) {
+			if (board[enemyKing->x - 1][enemyKing->y + 1] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y + 1, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x - 1, enemyKing->y + 1, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x - 1, enemyKing->y + 1, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x - 1;
+					checkMateMove_Y = enemyKing->y + 1;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X - 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y + 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x - 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y + 1;
 					++counterOfPossibleMovements;
 				}
 			}
@@ -259,86 +256,86 @@ void botMakeValidMove(char board[100][100],const int boardSize, King *enemyKing,
 	}
 
 	//(x+1) state
-	if (enemyKing_X + 1 <= boardSize - 1) {
+	if (enemyKing->x + 1 <= boardSize - 1) {
 		//(x+1) y 
-		if (enemyKing_Y <= boardSize - 1 && enemyKing_Y>=0) {
-			if (board[enemyKing_X + 1][enemyKing_Y] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X + 1, enemyKing_Y, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X + 1;
-					checkMateMove_Y = enemyKing_Y;
+		if (enemyKing->y <= boardSize - 1 && enemyKing->y>=0) {
+			if (board[enemyKing->x + 1][enemyKing->y] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x + 1, enemyKing->y, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x + 1;
+					checkMateMove_Y = enemyKing->y;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X + 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x + 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y;
 					++counterOfPossibleMovements;
 				}
 			}
 
 		}
 		//(x+1) (y-1)
-		if (enemyKing_Y - 1 >= 0) {
-			if (board[enemyKing_X + 1][enemyKing_Y-1] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y-1, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y-1, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X + 1, enemyKing_Y-1, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X + 1;
-					checkMateMove_Y = enemyKing_Y-1;
+		if (enemyKing->y - 1 >= 0) {
+			if (board[enemyKing->x + 1][enemyKing->y-1] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y-1, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y-1, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x + 1, enemyKing->y-1, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x + 1;
+					checkMateMove_Y = enemyKing->y-1;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X + 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y-1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x + 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y-1;
 					++counterOfPossibleMovements;
 				}
 			}
 		}
 		//(x+1) (y+1)
-		if (enemyKing_Y + 1 <= boardSize - 1) {
-			if (board[enemyKing_X + 1][enemyKing_Y + 1] == EMPTY) {
-				if (isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y + 1, playerRook1_X, playerRook1_Y) ||
-					isBotInCheckByRook(board, enemyKing_X + 1, enemyKing_Y + 1, playerRook2_X, playerRook2_Y) ||
-					isBotInCheckByKing(enemyKing_X + 1, enemyKing_Y + 1, playerKing_X, playerKing_Y)) {
-					checkMateMove_X = enemyKing_X + 1;
-					checkMateMove_Y = enemyKing_Y + 1;
+		if (enemyKing->y + 1 <= boardSize - 1) {
+			if (board[enemyKing->x + 1][enemyKing->y + 1] == EMPTY) {
+				if (isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y + 1, playerRook1->x, playerRook1->y) ||
+					isBotInCheckByRook(board, enemyKing->x + 1, enemyKing->y + 1, playerRook2->x, playerRook2->y) ||
+					isBotInCheckByKing(enemyKing->x + 1, enemyKing->y + 1, playerKing->x, playerKing->y)) {
+					checkMateMove_X = enemyKing->x + 1;
+					checkMateMove_Y = enemyKing->y + 1;
 				}
 				else {
-					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X + 1;
-					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y + 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x + 1;
+					possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y + 1;
 					++counterOfPossibleMovements;
 				}
 			}
 		}
 	}
 	//x (y-1)
-	if (enemyKing_Y - 1 >= 0) {
-		if (board[enemyKing_X][enemyKing_Y - 1] == EMPTY) {
-			if (isBotInCheckByRook(board, enemyKing_X, enemyKing_Y - 1, playerRook1_X, playerRook1_Y) ||
-				isBotInCheckByRook(board, enemyKing_X, enemyKing_Y - 1, playerRook2_X, playerRook2_Y) ||
-				isBotInCheckByKing(enemyKing_X, enemyKing_Y - 1, playerKing_X, playerKing_Y)) {
-				checkMateMove_X = enemyKing_X;
-				checkMateMove_Y = enemyKing_Y - 1;
+	if (enemyKing->y - 1 >= 0) {
+		if (board[enemyKing->x][enemyKing->y - 1] == EMPTY) {
+			if (isBotInCheckByRook(board, enemyKing->x, enemyKing->y - 1, playerRook1->x, playerRook1->y) ||
+				isBotInCheckByRook(board, enemyKing->x, enemyKing->y - 1, playerRook2->x, playerRook2->y) ||
+				isBotInCheckByKing(enemyKing->x, enemyKing->y - 1, playerKing->x, playerKing->y)) {
+				checkMateMove_X = enemyKing->x;
+				checkMateMove_Y = enemyKing->y - 1;
 			}
 			else {
-				possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X;
-				possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y - 1;
+				possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x;
+				possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y - 1;
 				++counterOfPossibleMovements;
 			}
 		}
 	}
 
 	//x (y+1)
-	if (enemyKing_Y + 1 <= boardSize - 1) {
-		if (board[enemyKing_X][enemyKing_Y + 1] == EMPTY) {
-			if (isBotInCheckByRook(board, enemyKing_X, enemyKing_Y + 1, playerRook1_X, playerRook1_Y) ||
-				isBotInCheckByRook(board, enemyKing_X, enemyKing_Y + 1, playerRook2_X, playerRook2_Y) ||
-				isBotInCheckByKing(enemyKing_X, enemyKing_Y + 1, playerKing_X, playerKing_Y)) {
-				checkMateMove_X = enemyKing_X;
-				checkMateMove_Y = enemyKing_Y + 1;
+	if (enemyKing->y + 1 <= boardSize - 1) {
+		if (board[enemyKing->x][enemyKing->y + 1] == EMPTY) {
+			if (isBotInCheckByRook(board, enemyKing->x, enemyKing->y + 1, playerRook1->x, playerRook1->y) ||
+				isBotInCheckByRook(board, enemyKing->x, enemyKing->y + 1, playerRook2->x, playerRook2->y) ||
+				isBotInCheckByKing(enemyKing->x, enemyKing->y + 1, playerKing->x, playerKing->y)) {
+				checkMateMove_X = enemyKing->x;
+				checkMateMove_Y = enemyKing->y + 1;
 			}
 			else {
-				possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing_X;
-				possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing_Y + 1;
+				possibleMovementsOfBOT[counterOfPossibleMovements][0] = enemyKing->x;
+				possibleMovementsOfBOT[counterOfPossibleMovements][1] = enemyKing->y + 1;
 				++counterOfPossibleMovements;
 			}
 		}
@@ -348,7 +345,7 @@ void botMakeValidMove(char board[100][100],const int boardSize, King *enemyKing,
 
 	if (possibleMovementsOfBOT.size() == 0) {
 		checkMateBOT = true;
-		board[enemyKing_X][enemyKing_Y] = EMPTY;
+		board[enemyKing->x][enemyKing->y] = EMPTY;
 		board[checkMateMove_X][checkMateMove_Y] = BOT;
 		return;
 	}
@@ -375,26 +372,26 @@ void printBoard(char board[100][100], const int size)
 		cout << endl;
 	}
 }
-void playerKingInit(char board[100][100], const int size, int x_BOT, int y_BOT) {
+void playerKingInit(char board[100][100], const int size, King* enemyKing) {
 	for (int x = 0; x < size; x++) {
 		for (int y = size - 1; y >= 0; y--) {
-			if (board[x][y] != BOT && board[x][y] == EMPTY) {
+			if (board[x][y] != enemyKing->name && board[x][y] == EMPTY && !isBotInCheckByKing(enemyKing->x,enemyKing->y,x,y)) {
 				board[x][y] = KING;
 				return;
 			}
 		}
 	}
 }
-void playerROOK1Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
+void playerROOK1Init(char board[100][100], const int size, King *enemyKing) {
 	for (int x = 0; x <= size-1; x++) {
-		if (x == x_BOT) {
+		if (x == enemyKing->x) {
 			continue;
 		}
 		for (int y = size-1; y >= 0; y--) {
-			if (y == y_BOT) {
+			if (y == enemyKing->y) {
 				continue;
 			}
-			else if(board[x][y]!=BOT && board[x][y]!=KING && board[x][y]==EMPTY)
+			else if(board[x][y]!=enemyKing->name && board[x][y]!=KING && board[x][y]==EMPTY)
 			{
 				board[x][y] = ROOK1;
 				return;
@@ -402,16 +399,16 @@ void playerROOK1Init(char board[100][100], const int size, int x_BOT, int y_BOT)
 		}
 	}
 }
-void playerROOK2Init(char board[100][100], const int size, int x_BOT, int y_BOT) {
+void playerROOK2Init(char board[100][100], const int size, King* enemyKing) {
 	for (int x = size-1; x >=0; x--) {
-		if (x == x_BOT) {
+		if (x == enemyKing->x) {
 			continue;
 		}
 		for (int y = 0; y < size; y++) {
-			if (y == y_BOT) {
+			if (y == enemyKing->y) {
 				continue;
 			}
-			else if (board[x][y] != BOT && board[x][y] != KING && board[x][y] != ROOK1 && board[x][y] == EMPTY)
+			else if (board[x][y] != enemyKing->name && board[x][y] != KING && board[x][y] != ROOK1 && board[x][y] == EMPTY)
 			{
 				board[x][y] = ROOK2;
 				return;

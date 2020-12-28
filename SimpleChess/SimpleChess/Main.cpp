@@ -70,15 +70,17 @@ int main()
 			board[x_BOT][y_BOT + 1] = BOT;
 		}
 
+		enemyKing.x = x_BOT;
+		enemyKing.y = y_BOT;
 		cout << NEW_LINE_CHARS;
-		playerKingInit(board, BOARD_SIZE, x_BOT, y_BOT);
-		playerROOK1Init(board, BOARD_SIZE, x_BOT, y_BOT);
-		playerROOK2Init(board, BOARD_SIZE, x_BOT, y_BOT);
+		playerKingInit(board, BOARD_SIZE, &enemyKing);
+		playerROOK1Init(board, BOARD_SIZE, &enemyKing);
+		playerROOK2Init(board, BOARD_SIZE, &enemyKing);
 		for (int i = 0; i < BOARD_SIZE; i++)
 		{
 			for (int j = 0; j < BOARD_SIZE; j++)
 			{
-				if (board[i][j] == BOT && (i != x_BOT || j != y_BOT)) {
+				if (board[i][j] == BOT && (i != enemyKing.x || j != enemyKing.y)) {
 					board[i][j] = EMPTY;
 				}
 
@@ -114,6 +116,7 @@ int main()
 		int counterMoves = 0;
 		//getline(cin, line, '\n');
 		while (!checkMateBOT) {
+			cout << NEW_LINE_CHARS;
 			printBoard(board, BOARD_SIZE);
 			bool flag = false;
 			while (!flag) {
@@ -125,7 +128,7 @@ int main()
 						if (player_Y >= 0 && player_Y <= BOARD_SIZE - 1) {
 							if (board[player_X][player_Y] == EMPTY) {
 								if (playerPiece[0] == playerRook1.name) {
-									if (isPossibleRookReplace(board,player_X, player_Y,playerRook1.x, playerRook1.y)) {
+									if (isPossibleRookReplace(board, player_X, player_Y, playerRook1.x, playerRook1.y)) {
 										board[playerRook1.x][playerRook1.y] = EMPTY;
 										board[player_X][player_Y] = playerRook1.name;
 										playerRook1.x = player_X;
@@ -157,7 +160,7 @@ int main()
 										}
 										continue;
 									}
-									else if (abs(abs(player_X-playerKing.x)+abs(player_Y-playerKing.y))<=2) {
+									else if (abs(abs(player_X - playerKing.x) + abs(player_Y - playerKing.y)) <= 2) {
 										board[playerKing.x][playerKing.y] = EMPTY;
 										board[player_X][player_Y] = playerKing.name;
 										playerKing.x = player_X;
@@ -178,16 +181,15 @@ int main()
 				}
 			}
 			counterMoves++;
-			printBoard(board, BOARD_SIZE);
-			botMakeValidMove(board, BOARD_SIZE, &enemyKing, enemyKing.x, enemyKing.y, playerKing.x, playerKing.y, playerRook1.x, playerRook1.y, playerRook2.x, playerRook2.y, checkMateBOT);
+			botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT);
 		}
+		printBoard(board, BOARD_SIZE);
 		cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
 		return 0;
-
-
 	}
 	else if (action == 2) {
-		//todo change line in file
+		//todo change file line
+		cout << "seks";
 		return 0;
 	}
 	else if (action == 3) {
