@@ -3,6 +3,7 @@
 #include <time.h>
 #include <iomanip>
 #include <string>
+#include <fstream>
 #include "Declarating.h"
 using namespace std;
 
@@ -12,6 +13,8 @@ const char ROOK1 = 'R';
 const char ROOK2 = 'r';
 const char KING = 'K';
 const int BOARD_SIZE = generateBoardSize();
+const int MIN_VALUE_OF_BOARD_SIZE = 4;
+const int MAX_VALUE_OF_BOARD_SIZE = 20;
 const int FIGURE_COUNT = 4;
 const string NEW_LINE_CHARS = "<< \n";
 const string IMPUT_USER_CHARS = ">> ";
@@ -189,7 +192,20 @@ int main()
 	}
 	else if (action == 2) {
 		//todo change file line
-		cout << "seks";
+		ofstream ofFile;
+		ofFile.open("constSize.txt", ios::out | ios::trunc);
+		ofFile.close();
+
+		cout << "CHANGE BOARD SIZE: ";
+		int changeBoardSize = 0;
+		do {
+			cin >> changeBoardSize;
+		} while (changeBoardSize < MIN_VALUE_OF_BOARD_SIZE || changeBoardSize>MAX_VALUE_OF_BOARD_SIZE);
+
+		ofstream outFile;
+		outFile.open("constSize.txt", ios::out);
+		outFile << "SizeBoard=" << changeBoardSize;
+		outFile.close();
 		return 0;
 	}
 	else if (action == 3) {
