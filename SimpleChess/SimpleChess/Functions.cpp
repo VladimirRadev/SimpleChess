@@ -151,7 +151,6 @@ bool isBotInCheckByKing(int bot_x, int bot_y, int playerKing_X, int playerKing_Y
 		return false;
 	}
 }
-
 bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, int current_X,int current_Y) {
 	if ((replace_X == current_X && replace_Y != current_Y) || (replace_X != current_X && replace_Y == current_Y)) {
 		//move up or down
@@ -198,6 +197,27 @@ bool isPossibleRookReplace(char board[100][100],int replace_X, int replace_Y, in
 		return false;
 	}
 }
+bool isPossibleKingReplace(int replace_X, int replace_Y, King* enemyKing, King* playerKing) {
+	if ((replace_X == playerKing->x && playerKing->y != replace_Y) || (replace_X != playerKing->x && playerKing->y == replace_Y)) {
+		if (abs(abs(replace_X - playerKing->x) + abs(replace_Y - playerKing->y)) <= 1) {
+			//same method is bot in check by king working for is king in check by bot after replace
+			if (!isBotInCheckByKing(enemyKing->x, enemyKing->y, replace_X, replace_Y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	else if (abs(abs(replace_X - playerKing->x) + abs(replace_Y - playerKing->y)) <= 2) {
+		if (!isBotInCheckByKing(enemyKing->x, enemyKing->y, replace_X, replace_Y)) {
+			return true;
+		}
+		return false;
+	}
+	else {
+		return false;
+	}
+}
+
 void botMakeValidMove(char board[100][100], const int boardSize, King* enemyKing, King* playerKing, Rook* playerRook1, Rook* playerRook2 , bool& checkMateBOT) {
 	map<int, int[2]>possibleMovementsOfBOT;
 	int checkMateMove_X = enemyKing->x, checkMateMove_Y = enemyKing->y, counterOfPossibleMovements = 0;
@@ -413,6 +433,13 @@ void playerROOK2Init(char board[100][100], const int size, King* enemyKing) {
 				board[x][y] = ROOK2;
 				return;
 			}
+		}
+	}
+}
+void clearBoard(char board[100][100], const int boardSize) {
+	for (int i = 0; i < boardSize; i++) {
+		for (int j = 0; j < boardSize; j++) {
+			board[i][j] = EMPTY;
 		}
 	}
 }
