@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include "Declarating.h"
+
 using namespace std;
 
 const char EMPTY = '-';
@@ -21,8 +22,8 @@ const string IMPUT_USER_CHARS = ">> ";
 
 King enemyKing = { BOT,0,0 };
 King playerKing = { KING,0,0 };
-Rook playerRook1 = { ROOK1,0,0 };
-Rook playerRook2 = { ROOK2,0,0 };
+Rook playerRook1 = { ROOK1,0,0,0 };
+Rook playerRook2 = { ROOK2,0,0,0 };
 int main()
 {
 	char board[100][100] = { 0 };
@@ -118,10 +119,10 @@ int main()
 			string playerPiece;
 			int player_X = 0;
 			int player_Y = 0;
-			bool checkMateBOT = false;
+			bool checkMateBOT = false, isDraw = false;
 			int counterMoves = 0;
 			//getline(cin, line, '\n');
-			while (!checkMateBOT) {
+			while (!checkMateBOT && !isDraw) {
 				cout << NEW_LINE_CHARS;
 				printBoard(board, BOARD_SIZE);
 				bool flag = false;
@@ -133,7 +134,7 @@ int main()
 						if (player_X >= 0 && player_X <= BOARD_SIZE - 1) {
 							if (player_Y >= 0 && player_Y <= BOARD_SIZE - 1) {
 								if (board[player_X][player_Y] == EMPTY) {
-									if (playerPiece[0] == playerRook1.name) {
+									if (playerPiece[0] == playerRook1.name && !playerRook1.isTaken) {
 										if (isPossibleRookReplace(board, player_X, player_Y, playerRook1.x, playerRook1.y)) {
 											board[playerRook1.x][playerRook1.y] = EMPTY;
 											board[player_X][player_Y] = playerRook1.name;
@@ -144,7 +145,7 @@ int main()
 											continue;
 										}
 									}
-									else if (playerPiece[0] == playerRook2.name) {
+									else if (playerPiece[0] == playerRook2.name && !playerRook2.isTaken) {
 										if (isPossibleRookReplace(board, player_X, player_Y, playerRook2.x, playerRook2.y)) {
 											board[playerRook2.x][playerRook2.y] = EMPTY;
 											board[player_X][player_Y] = playerRook2.name;
@@ -156,7 +157,7 @@ int main()
 										}
 									}
 									else if (playerPiece[0] == playerKing.name) {
-										if (isPossibleKingReplace(player_X,player_Y,&enemyKing,&playerKing)) {
+										if (isPossibleKingReplace(player_X, player_Y, &enemyKing, &playerKing)) {
 											board[playerKing.x][playerKing.y] = EMPTY;
 											board[player_X][player_Y] = playerKing.name;
 											playerKing.x = player_X;
@@ -177,9 +178,24 @@ int main()
 				}
 				counterMoves++;
 				botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT);
+				if (playerRook1.isTaken && playerRook2.isTaken) {
+					isDraw = true;
+				}
 			}
+
 			printBoard(board, BOARD_SIZE);
-			cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
+			if (isDraw) {
+				cout << "DRAW MATCH!" << endl;
+			}
+			else {
+				cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
+			}
+			/*enemyKing = { BOT,0,0 };
+			playerKing = { KING,0,0 };
+			playerRook1 = { ROOK1,0,0,0 };
+			playerRook2 = { ROOK2,0,0,0 };*/
+			playerRook1.isTaken = false;
+			playerRook2.isTaken = false;
 			clearBoard(board, BOARD_SIZE);
 			system("pause");
 			system("CLS");
@@ -207,7 +223,7 @@ int main()
 			return 0;
 		}
 		else if (action == 3) {
-		    system("CLS");
+			system("CLS");
 			cout << "Exiting" << endl;
 			return 0;
 
