@@ -1,6 +1,8 @@
 ﻿  Functions.cpp
 D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\SimpleChess\Functions.cpp(26,20): warning C4018: '<': signed/unsigned mismatch
 D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\SimpleChess\Functions.cpp(32,22): warning C4018: '<': signed/unsigned mismatch
-D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\SimpleChess\Functions.cpp(203): warning C4715: 'isPossibleRookReplace': not all control paths return a value
+  Main.cpp
+  Generating Code...
 D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\SimpleChess\Functions.cpp(143): warning C4715: 'isBotInCheckByRook': not all control paths return a value
+D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\SimpleChess\Functions.cpp(203): warning C4715: 'isPossibleRookReplace': not all control paths return a value
   SimpleChess.vcxproj -> D:\Documents\Visual Studio 2019\Code repo\C++ FMI\SimpleChess_Kursov_Proekt_UP2021\SimpleChess\SimpleChess\Debug\SimpleChess.exe

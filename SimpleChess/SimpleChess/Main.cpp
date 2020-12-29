@@ -190,13 +190,8 @@ int main()
 			else {
 				cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
 			}
-			/*enemyKing = { BOT,0,0 };
-			playerKing = { KING,0,0 };
-			playerRook1 = { ROOK1,0,0,0 };
-			playerRook2 = { ROOK2,0,0,0 };*/
-			playerRook1.isTaken = false;
-			playerRook2.isTaken = false;
 			clearBoard(board, BOARD_SIZE);
+			clearData(&enemyKing, &playerKing,&playerRook1, &playerRook2);
 			system("pause");
 			system("CLS");
 		}

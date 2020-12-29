@@ -594,3 +594,17 @@ void clearBoard(char board[100][100], const int boardSize) {
 		}
 	}
 }
+void clearData(King* enemyKing, King* playerKing, Rook* playerRook1, Rook* playerRook2) {
+
+	enemyKing->x = 0;
+	enemyKing->y = 0;
+	playerKing->x = 0;
+	playerKing->y = 0;
+	playerRook1->x = 0;
+	playerRook1->y = 0;
+	playerRook1->isTaken = false;
+	playerRook2->x = 0;
+	playerRook2->y = 0;
+	playerRook2->isTaken = false;
+}
+	
