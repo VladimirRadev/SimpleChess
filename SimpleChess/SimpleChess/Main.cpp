@@ -4,8 +4,8 @@
 #include <iomanip>
 #include <string>
 #include <fstream>
-#include "Declarating.h"
-
+#include "GamePlay.h"
+#include "GameInitializer.h"
 using namespace std;
 
 const char EMPTY = '-';
@@ -204,20 +204,19 @@ int main()
 			//todo change file line
 			system("CLS");
 			cout << "CHANGING BOARD SIZE: \n";
-			ofstream ofFile;
-			ofFile.open("constSize.txt", ios::out | ios::trunc);
-			ofFile.close();
-
 			int changeBoardSize = 0;
 			do {
 				cout << "CHANGE BOARD SIZE: ";
 				cin >> changeBoardSize;
 			} while (changeBoardSize < MIN_VALUE_OF_BOARD_SIZE || changeBoardSize>MAX_VALUE_OF_BOARD_SIZE);
 
-			ofstream outFile;
-			outFile.open("constSize.txt", ios::out);
-			outFile << "SizeBoard=" << changeBoardSize;
-			outFile.close();
+			ofstream ofFile;
+			ofFile.open("CustomSizeBoard.txt", ios::out | ios::trunc);
+			if (!ofFile) {
+				return -1;
+			}
+			ofFile << "SizeBoard=" << changeBoardSize;
+			ofFile.close();
 			system("CLS");
 			cout << "BOARD SIZE WAS CHANGE SUCSESFULLY!" << endl;
 			return 0;

@@ -139,11 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="GameInitializerFunctions.cpp" />
+    <ClCompile Include="GamePlayFunctions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Declarating.h" />
+    <ClInclude Include="GameInitializer.h" />
+    <ClInclude Include="GamePlay.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CustomSizeBoard.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
