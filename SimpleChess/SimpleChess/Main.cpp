@@ -140,6 +140,8 @@ int main()
 											board[player_X][player_Y] = playerRook1.name;
 											playerRook1.x = player_X;
 											playerRook1.y = player_Y;
+											flag = true;
+											break;
 										}
 										else {
 											continue;
@@ -151,6 +153,8 @@ int main()
 											board[player_X][player_Y] = playerRook2.name;
 											playerRook2.x = player_X;
 											playerRook2.y = player_Y;
+											flag = true;
+											break;
 										}
 										else {
 											continue;
@@ -162,14 +166,15 @@ int main()
 											board[player_X][player_Y] = playerKing.name;
 											playerKing.x = player_X;
 											playerKing.y = player_Y;
+											flag = true;
+											break;
 										}
 										else {
 											continue;
 										}
 
 									}
-									flag = true;
-									break;
+									continue;
 								}
 							}
 						}
@@ -177,7 +182,7 @@ int main()
 					}
 				}
 				counterMoves++;
-				botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT);
+				botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT,isDraw);
 				if (playerRook1.isTaken && playerRook2.isTaken) {
 					isDraw = true;
 				}
@@ -188,7 +193,7 @@ int main()
 				cout << "DRAW MATCH!" << endl;
 			}
 			else {
-				cout << "YOU WIN AFTER: " << counterMoves << " steps" << endl;
+				cout << "YOU WON AFTER: " << counterMoves << " steps" << endl;
 			}
 			clearBoard(board, BOARD_SIZE);
 			clearData(&enemyKing, &playerKing,&playerRook1, &playerRook2);
