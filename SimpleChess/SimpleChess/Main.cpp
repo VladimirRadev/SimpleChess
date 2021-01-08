@@ -1,4 +1,20 @@
+/**
+*
+* Solution to course project # 9
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2020/2021
+*
+* @author Vladimir Radev
+* @idnumber 62530
+* @compiler VC
+*
+* Main file runs all functionality of the project
+*
+*/
+
 #include <iostream>
+#include <cstdlib>
 #include <vector>
 #include <time.h>
 #include <iomanip>
@@ -16,9 +32,10 @@ const char KING = 'K';
 const int BOARD_SIZE = generateBoardSize();
 const int MIN_VALUE_OF_BOARD_SIZE = 4;
 const int MAX_VALUE_OF_BOARD_SIZE = 20;
-const int FIGURE_COUNT = 4;
+
 const string NEW_LINE_CHARS = "<< \n";
 const string IMPUT_USER_CHARS = ">> ";
+const string HEADERS_DESIGN = "************";
 
 King enemyKing = { BOT,0,0 };
 King playerKing = { KING,0,0 };
@@ -37,10 +54,11 @@ int main()
 	}
 	while (action != 3) {
 
-		cout << setw(30) << "GAME OPTIONS: \n";
+		cout << HEADERS_DESIGN<< "GAME OPTIONS"<<HEADERS_DESIGN<< endl;
 		cout << "1.NEW GAME" << endl;
 		cout << "2.CHANGE BOARD SIZE" << endl;
-		cout << "3.EXIT" << endl << endl;
+		cout << "3.EXIT" << endl;
+		cout << HEADERS_DESIGN << HEADERS_DESIGN << HEADERS_DESIGN << endl << endl;
 		cout << "TYPE THE NUMBER OF WISH ACTION:  ";
 		do {
 			cin >> action;
@@ -48,8 +66,8 @@ int main()
 		} while (action < 1 || action>3);
 
 		if (action == 1) {
-			system("CLS");
-			cout << "GAME AGAINST BOT: \n";
+			consoleClear();
+			cout << HEADERS_DESIGN << "GAME AGAINST BOT" << HEADERS_DESIGN << endl;
 			int x_BOT = (int)(rand() % (BOARD_SIZE - 1));
 			int y_BOT = (int)(rand() % (BOARD_SIZE - 1));
 			board[x_BOT][y_BOT] = BOT;
@@ -115,13 +133,11 @@ int main()
 					}
 				}
 			}
-			//string line;
 			string playerPiece;
 			int player_X = 0;
 			int player_Y = 0;
 			bool checkMateBOT = false, isDraw = false;
 			int counterMoves = 0;
-			//getline(cin, line, '\n');
 			while (!checkMateBOT && !isDraw) {
 				cout << NEW_LINE_CHARS;
 				printBoard(board, BOARD_SIZE);
@@ -182,7 +198,7 @@ int main()
 					}
 				}
 				counterMoves++;
-				botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT,isDraw);
+				botMakeValidMove(board, BOARD_SIZE, &enemyKing, &playerKing, &playerRook1, &playerRook2, checkMateBOT, isDraw);
 				if (playerRook1.isTaken && playerRook2.isTaken) {
 					isDraw = true;
 				}
@@ -196,18 +212,18 @@ int main()
 				cout << "YOU WON AFTER: " << counterMoves << " steps" << endl;
 			}
 			clearBoard(board, BOARD_SIZE);
-			clearData(&enemyKing, &playerKing,&playerRook1, &playerRook2);
+			clearData(&enemyKing, &playerKing, &playerRook1, &playerRook2);
 			system("pause");
-			system("CLS");
+			consoleClear();
 		}
 		else if (action == 2) {
-			//todo change file line
-			system("CLS");
-			cout << "CHANGING BOARD SIZE: \n";
+			consoleClear();
 			int changeBoardSize = 0;
 			do {
-				cout << "CHANGE BOARD SIZE: ";
+				cout << HEADERS_DESIGN << "CHANGE BOARD SIZE" << HEADERS_DESIGN << endl;
+				cout << "VALUE OF BOARD MUST BE WITHIN [4,20]: ";
 				cin >> changeBoardSize;
+				consoleClear();
 			} while (changeBoardSize < MIN_VALUE_OF_BOARD_SIZE || changeBoardSize>MAX_VALUE_OF_BOARD_SIZE);
 
 			ofstream ofFile;
@@ -217,13 +233,14 @@ int main()
 			}
 			ofFile << "SizeBoard=" << changeBoardSize;
 			ofFile.close();
-			system("CLS");
+
+			consoleClear();
 			cout << "BOARD SIZE WAS CHANGE SUCSESFULLY!" << endl;
 			return 0;
 		}
 		else if (action == 3) {
-			system("CLS");
-			cout << "Exiting" << endl;
+			consoleClear();
+			cout << "Exiting....................." << endl;
 			return 0;
 
 		}

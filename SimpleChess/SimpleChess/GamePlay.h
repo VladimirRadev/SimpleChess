@@ -1,3 +1,18 @@
+/**
+*
+* Solution to course project # 9
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2020/2021
+*
+* @author Vladimir Radev
+* @idnumber 62530
+* @compiler VC
+*
+* Header file store declaration of functions used in Main.cpp ( where is the game loop)
+* Definition of functions listed down below is located in GamePlay.cpp
+*
+*/
 #pragma once
 #include <vector>
 #include "GameInitializer.h"

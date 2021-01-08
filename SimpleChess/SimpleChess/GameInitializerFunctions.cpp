@@ -1,3 +1,17 @@
+/**
+*
+* Solution to course project # 9
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2020/2021
+*
+* @author Vladimir Radev
+* @idnumber 62530
+* @compiler VC
+*
+* File to store all definitions of functions declarated in GameInitializer.h file
+*
+*/
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -39,6 +53,12 @@ int generateBoardSize()
 	}
 	return num;
 
+}
+void consoleClear()
+{
+	Sleep(100);
+	system("CLS");
+	Sleep(100);
 }
 void printBoard(char board[100][100], const int size)
 {
